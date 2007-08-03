@@ -67,13 +67,15 @@ public final class AntFileListing extends Task {
 	        log(directory);
 	        log(xmlFile);
 
+	        /*
 	        // Call the FileListing class, passing it our arguments
         	try {
-				FileListing.main(verb, help, directory, xmlFile);
+				 FileListing.main(verb, help, directory, xmlFile);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			*/
 
     }
 

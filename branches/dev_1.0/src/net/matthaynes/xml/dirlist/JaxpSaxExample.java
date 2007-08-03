@@ -26,6 +26,8 @@
  * 
  */
 
+package net.matthaynes.xml.dirlist;
+
 import java.io.*;
 
 // SAX classes.
