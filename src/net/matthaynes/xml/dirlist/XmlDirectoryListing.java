@@ -4,17 +4,13 @@
  * Error checking everywhere!
  * Logging.
  * Specify imports more exactly.
- * DONE: Sorting
- * DONE: Reverse sorting
- * DONE: Depth
  * Includes 
  * Excludes
- * Seperate Main into another class
  * Ant Task
  * 
  */
 
-// package net.matthaynes.xml.dirlist;
+package net.matthaynes.xml.dirlist;
 
 import java.io.*;
 import java.util.*;
@@ -46,22 +42,6 @@ public final class XmlDirectoryListing {
 	protected boolean depthControl = false;
 	protected int depth = 0;
 	
-	// Main function
-	public static void main(String aArguments[]) throws FileNotFoundException, IOException {
-	
-		// Get specified directory
-		File dir = new File(aArguments[1]); 
-		
-		// Set output stream for generated file
-		FileOutputStream out = new FileOutputStream("test.xml");
-		
-		// Begin listing
-		FileListing lister = new FileListing();
-		lister.generateXmlDirectoryListing(dir, out);
-		
-		// Close output stream
-		out.close();
-	}
 	
 	/**
 	 * Starts generation of XML directory listing.
