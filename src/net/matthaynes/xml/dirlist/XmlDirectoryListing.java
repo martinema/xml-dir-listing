@@ -27,6 +27,9 @@ import javax.xml.transform.*;
 import javax.xml.transform.stream.*;
 import javax.xml.transform.sax.*;
 
+// Jakarta Regex
+import org.apache.regexp.*;
+
 public final class XmlDirectoryListing {
 	
 	// SAX stuff
@@ -42,6 +45,10 @@ public final class XmlDirectoryListing {
 	protected boolean depthControl = false;
 	protected int depth = 0;
 	
+    /** The regular expression for the include pattern. */
+    protected RE includeRE;
+    /** The regular expression for the exclude pattern. */
+    protected RE excludeRE;
 	
 	/**
 	 * Starts generation of XML directory listing.
@@ -49,6 +56,13 @@ public final class XmlDirectoryListing {
 	 * @param out The output stream to write XML file to.
 	 */
 	public void generateXmlDirectoryListing (final File dir, final OutputStream out) {
+		
+		try {
+			includeRE = new RE(".svn");
+		} catch (RESyntaxException rese) {
+			
+		}
+		
 		
 		if (dir.isDirectory()) {
 			
@@ -112,23 +126,27 @@ public final class XmlDirectoryListing {
 	 */
 	public void createElement(final File file, final int depth) {
 		
-		setAttributes(file);
-		
-		String fileType = getType(file);
-		
-		try{
-			// Output details of the file
-			hd.startElement("","",fileType,atts);
+		if (isIncluded(file) && !isExcluded(file)) {
+
+			setAttributes(file);
 			
-			if (fileType == "directory") {
-				parseDirectory(file, depth);
-			}
+			String fileType = getType(file);
 			
-			hd.endElement("","",fileType);
-		
-		} catch (SAXException e) {
-		
+			try{
+				// Output details of the file
+				hd.startElement("","",fileType,atts);
+				
+				if (fileType == "directory") {
+					parseDirectory(file, depth);
+				}
+				
+				hd.endElement("","",fileType);
+			
+			} catch (SAXException e) {
+			
+			}			
 		}
+	
 	}
 		
 	/**
@@ -217,6 +235,28 @@ public final class XmlDirectoryListing {
 			
 	}	
 	
+    /**
+     * Determines if a given File shall be visible.
+     * 
+     * @param path  the File to check
+     * @return true if the File shall be visible or the include Pattern is <code>null</code>,
+     *         false otherwise.
+     */
+    protected boolean isIncluded(File path) {
+        return (includeRE == null) ? true : includeRE.match(path.getName());
+    }
+
+    /**
+     * Determines if a given File shall be excluded from viewing.
+     * 
+     * @param path  the File to check
+     * @return false if the given File shall not be excluded or the exclude Pattern is <code>null</code>,
+     *         true otherwise.
+     */
+    protected boolean isExcluded(File path) {
+        return (excludeRE == null) ? false : excludeRE.match(path.getName());
+    }
+	
 	/**
 	 * Sort all files in directory, create an element for each.
 	 * @param dir The directory to parse. 
@@ -277,6 +317,37 @@ public final class XmlDirectoryListing {
 	public void setDepth(final int newDepth) {
 		depthControl = true;
 		depth = newDepth;
+	}
+	
+	/**
+	 * Sets the exclude regular expression
+	 * @param rePattern The regular expression.
+	 */
+	public void setExcluded(String rePattern) {
+        
+		try {           
+            excludeRE = new RE(rePattern);
+        } catch (RESyntaxException rese) {
+           /* throw new Exception("Syntax error in regexp pattern '"
+                                          + rePattern + "'", rese);
+		   */
+        }
+	}
+	
+	
+	/**
+	 * Sets the include regular expression
+	 * @param rePattern The regular expression.
+	 */
+	public void setIncluded(String rePattern) {
+        
+		try {           
+            includeRE = new RE(rePattern);
+        } catch (RESyntaxException rese) {
+           /* throw new Exception("Syntax error in regexp pattern '"
+                                          + rePattern + "'", rese);
+		   */
+        }
 	}
 	
 	/**
@@ -368,7 +439,7 @@ public final class XmlDirectoryListing {
                 }
             });
         }
-		
+
 		return files;
 	}
 		
