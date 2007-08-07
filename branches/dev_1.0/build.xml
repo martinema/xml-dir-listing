@@ -16,7 +16,7 @@
 		<mkdir dir="${classes.dir}"/>
 		<javac srcdir="${src.dir}" destdir="${classes.dir}">
 			<classpath>
-        		<pathelement location="${lib.dir}"/>
+        		<pathelement path="${lib.dir}"/>
         		<pathelement path="${java.class.path}/"/>
        		</classpath>
 		</javac>	
@@ -25,11 +25,17 @@
 	<target name="jar" description="JARs the Task" depends="compile">
 		<mkdir dir="${bin.dir}"/>
 		<jar destfile="${bin.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+			<fileset dir="${classes.dir}" excludes="**/JaxpSaxExample.class" />
+    			
+    	    		<indexjars>
+	    			<fileset dir="./lib"/>
+    	    		</indexjars>
+    	    		
 			<manifest>
-				<attribute name="Main-Class" value="uk.co.bbc.xml.dir.list.FileListing"/>
+				<attribute name="Main-Class" value="net.matthaynes.xml.dirlist.DirectoryListing"/>
+				<attribute name="Class-Path" value="../lib/jakarta-regexp-1.5.jar"/>
 			</manifest>
 		</jar>
-
 	</target>
 
 	<target name="useCLI" description="Use the tool form command line" depends="jar">
