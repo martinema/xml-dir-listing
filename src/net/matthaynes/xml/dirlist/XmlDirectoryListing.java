@@ -57,13 +57,8 @@ public final class XmlDirectoryListing {
 	 */
 	public void generateXmlDirectoryListing (final File dir, final OutputStream out) {
 		
-		try {
-			includeRE = new RE(".svn");
-		} catch (RESyntaxException rese) {
-			
-		}
-		
-		
+		setIncluded("*.java");
+					
 		if (dir.isDirectory()) {
 			
 			System.out.println("Generating listing for " + dir.getAbsolutePath());
@@ -104,7 +99,7 @@ public final class XmlDirectoryListing {
 				// SAX ContentHandler parse event
 				hd.startDocument();
 				
-				createElement(dir, depth);
+				createElement(dir, depth, true);
 							
 				// SAX ContentHandler parse event
 				hd.endDocument();
@@ -124,9 +119,9 @@ public final class XmlDirectoryListing {
 	 * Creates a new element based on the file based through.
 	 * @param file The file on which the element is based.
 	 */
-	public void createElement(final File file, final int depth) {
+	public void createElement(final File file, final int depth, boolean isRoot) {
 		
-		if (isIncluded(file) && !isExcluded(file)) {
+		if (isIncluded(file) && !isExcluded(file) || isRoot == true) {
 
 			setAttributes(file);
 			
@@ -243,6 +238,7 @@ public final class XmlDirectoryListing {
      *         false otherwise.
      */
     protected boolean isIncluded(File path) {
+    	System.out.println(includeRE.match(path.getName()));
         return (includeRE == null) ? true : includeRE.match(path.getName());
     }
 
@@ -271,7 +267,7 @@ public final class XmlDirectoryListing {
 			// Loop through array and create element for each file.
 			for (int i=0;i<files.length;i++) {
 
-				createElement(files[i], depth -1);
+				createElement(files[i], depth -1, false);
 
 			}
 		}
@@ -328,12 +324,12 @@ public final class XmlDirectoryListing {
 		try {           
             excludeRE = new RE(rePattern);
         } catch (RESyntaxException rese) {
-           /* throw new Exception("Syntax error in regexp pattern '"
+            /*throw new Exception("Syntax error in regexp pattern '"
                                           + rePattern + "'", rese);
-		   */
+                                          */
+		   
         }
 	}
-	
 	
 	/**
 	 * Sets the include regular expression
@@ -341,12 +337,11 @@ public final class XmlDirectoryListing {
 	 */
 	public void setIncluded(String rePattern) {
         
-		try {           
-            includeRE = new RE(rePattern);
+		try {   
+			includeRE  = (rePattern == null) ? null : new RE(rePattern);
         } catch (RESyntaxException rese) {
-           /* throw new Exception("Syntax error in regexp pattern '"
-                                          + rePattern + "'", rese);
-		   */
+           // throw new Exception("Syntax error in regexp pattern '" + rePattern + "'", rese);
+        	System.out.println("Syntax error in regexp pattern '" + rePattern + "'");
         }
 	}
 	
