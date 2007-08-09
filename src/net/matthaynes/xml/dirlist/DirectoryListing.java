@@ -1,6 +1,7 @@
 package net.matthaynes.xml.dirlist;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public final class DirectoryListing {
@@ -17,6 +18,7 @@ public final class DirectoryListing {
 
 		// Begin listing
 		XmlDirectoryListing lister = new XmlDirectoryListing();
+		lister.dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss'hello'");
 		lister.generateXmlDirectoryListing(dir, out);
 
 		// Close output stream
