@@ -16,7 +16,7 @@
 		<mkdir dir="${classes.dir}"/>
 		<javac srcdir="${src.dir}" destdir="${classes.dir}">
 			<classpath>
-        		<pathelement path="${lib.dir}"/>
+        		<pathelement path="./lib/jakarta-regexp-1.5.jar"/>
         		<pathelement path="${java.class.path}/"/>
        		</classpath>
 		</javac>	

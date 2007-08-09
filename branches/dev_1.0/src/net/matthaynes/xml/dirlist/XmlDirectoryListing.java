@@ -1,9 +1,10 @@
 /* 
- * TODO:
+ * To do:
  * 
  * Error checking everywhere!
  * Logging.
  * Specify imports more exactly.
+ * Refacto, do we need get methods? Set methods?
  * Includes 
  * Excludes
  * Ant Task
@@ -28,25 +29,36 @@ import javax.xml.transform.stream.*;
 import javax.xml.transform.sax.*;
 
 // Jakarta Regex
-import org.apache.regexp.*;
+import org.apache.regexp.RE;
+import org.apache.regexp.RESyntaxException;
 
 public final class XmlDirectoryListing {
 	
-	// SAX stuff
+	// SAX stuff, comment better, understand more!
 	protected static StreamResult streamResult;
 	protected static SAXTransformerFactory tf;
 	protected static TransformerHandler hd;
 	protected static Transformer serializer;
 	protected static AttributesImpl atts;
 	
+	/** Sort method for the directory listing. Defaults to "name". */
 	protected String sort = "directory"; 
+	
+	/** Reverse sort method. Defaults to false. */
 	protected boolean reverse = false;
-	protected static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+	
+	/** Date format for date attributes. Defaults to "yyyyMMdd'T'HHmmss" */
+	public DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+	
+	/** Depth control for directory recursion. Defaults to "false" */
 	protected boolean depthControl = false;
-	protected int depth = 0;
+	
+	/** How deep to recurse into directory structure. */
+	protected int depth;
 	
     /** The regular expression for the include pattern. */
     protected RE includeRE;
+    
     /** The regular expression for the exclude pattern. */
     protected RE excludeRE;
 	
@@ -57,8 +69,6 @@ public final class XmlDirectoryListing {
 	 */
 	public void generateXmlDirectoryListing (final File dir, final OutputStream out) {
 		
-		setIncluded("*.java");
-					
 		if (dir.isDirectory()) {
 			
 			System.out.println("Generating listing for " + dir.getAbsolutePath());
@@ -121,18 +131,18 @@ public final class XmlDirectoryListing {
 	 */
 	public void createElement(final File file, final int depth, boolean isRoot) {
 		
-		if (isIncluded(file) && !isExcluded(file) || isRoot == true) {
+		if (this.isIncluded(file) && !this.isExcluded(file) || isRoot == true) {
 
-			setAttributes(file);
+			this.setAttributes(file);
 			
-			String fileType = getType(file);
+			String fileType = (file.isDirectory()) ? "directory" : "file"; 
 			
 			try{
 				// Output details of the file
 				hd.startElement("","",fileType,atts);
 				
 				if (fileType == "directory") {
-					parseDirectory(file, depth);
+					this.parseDirectory(file, depth);
 				}
 				
 				hd.endElement("","",fileType);
@@ -144,91 +154,6 @@ public final class XmlDirectoryListing {
 	
 	}
 		
-	/**
-	 * Gets the absolute path of the file.
-	 * @param file The file to get the path for.
-	 */
-	public static String getAbsolutePath(final File file) {
-
-		return file.getAbsolutePath();	
-
-	}
-	
-	/**
-	 * When passed a valid file, sets the lastModified attribute.
-	 * @param file The file to get the lastModified for.
-	 */
-	public static String getDate(final File file) {
-		
-		// Get the last modified date
-		long lastModified = file.lastModified();
-		
-		// Get as date
-		Date d =  new Date(lastModified);
-		
-		// Convert to string with formatting.
-        String s = dateFormat.format(d);
-        									
-		return s;
-		
-	}
-	
-	/**
-	 * When passed a valid file, sets the fileSize attribute to the size of the file in bytes.
-	 * @param file The file to get the size for.
-	 */
-	public static String getSize(final File file) {
-		
-		// Get the number of bytes in the file
-		long length = file.length();
-		
-		// Convert size to string
-		String s = new String();
-		s = String.valueOf(length);
-		
-		return s;
-
-	}
-
-	/**
-	 * When passed a valid file, sets the lastModified attribute.
-	 * @param file The file to get the lastModified for.
-	 */
-	public static String getLastModified(final File file) {
-					
-		// Get the last modified date
-		long lastModified = file.lastModified();
-		
-		// Convert last modified to string
-		String s = new String();
-		s = String.valueOf(lastModified);
-        									
-		return s;
-
-	}
-	
-	/**
-	 * Sets the name attribute.
-	 * @param file The file to get the name for.
-	 */
-	public static String getName(final File file) {
-		
-		return file.getName();	
-	}	
-	
-	/**
-	 * Gets the type of the File object, returns directort or file.
-	 * @param file The file to get the type for.
-	 */
-	public static String getType(final File file) {
-		
-		if (file.isDirectory()) {
-			return "directory";
-		} else {
-			return "file";
-		}
-			
-	}	
 	
     /**
      * Determines if a given File shall be visible.
@@ -237,11 +162,11 @@ public final class XmlDirectoryListing {
      * @return true if the File shall be visible or the include Pattern is <code>null</code>,
      *         false otherwise.
      */
-    protected boolean isIncluded(File path) {
-    	System.out.println(includeRE.match(path.getName()));
-        return (includeRE == null) ? true : includeRE.match(path.getName());
+    public boolean isIncluded(File path) {
+        return (this.includeRE == null) ? true : this.includeRE.match(path.getName());
     }
 
+    
     /**
      * Determines if a given File shall be excluded from viewing.
      * 
@@ -249,17 +174,19 @@ public final class XmlDirectoryListing {
      * @return false if the given File shall not be excluded or the exclude Pattern is <code>null</code>,
      *         true otherwise.
      */
-    protected boolean isExcluded(File path) {
-        return (excludeRE == null) ? false : excludeRE.match(path.getName());
+    public boolean isExcluded(File path) {
+        return (this.excludeRE == null) ? false : this.excludeRE.match(path.getName());
     }
 	
 	/**
 	 * Sort all files in directory, create an element for each.
+	 * 
 	 * @param dir The directory to parse. 
+	 * @param depth Current depth of directory structure. 
 	 */
-	public void parseDirectory(final File dir, final int depth) {
+	public void parseDirectory(File dir, final int depth) {
 		
-		if (!depthControl || depth > 0) {
+		if (!this.depthControl || depth > 0) {
 			
 			// Store all files in an array and sort.
 			File[] files = sortFiles(dir.listFiles());
@@ -278,16 +205,16 @@ public final class XmlDirectoryListing {
 	 * Sets all attributes for the file 
 	 * @param file The file to set attributes for
 	 */
-	public void setAttributes(final File file) {
+	public void setAttributes(File file) {
 
 		// Clear current attributes
 		atts.clear();
 		
-		atts.addAttribute("","","name","CDATA",getName(file));
-		atts.addAttribute("","","size","CDATA",getSize(file));
-		atts.addAttribute("","","lastModified","CDATA",getLastModified(file));
-		atts.addAttribute("","","date","CDATA",getDate(file));
-		atts.addAttribute("","","absolutePath","CDATA",getAbsolutePath(file));
+		atts.addAttribute("","","name","CDATA",file.getName());
+		atts.addAttribute("","","size","CDATA",String.valueOf(file.length()));
+		atts.addAttribute("","","lastModified","CDATA",String.valueOf(file.lastModified()));
+		atts.addAttribute("","","date","CDATA",this.dateFormat.format(new Date(file.lastModified())));
+		atts.addAttribute("","","absolutePath","CDATA",file.getAbsolutePath());
 		
 	}
 	
@@ -295,11 +222,11 @@ public final class XmlDirectoryListing {
 	 * Sets the date format for the class, must be valid SimpleDateFormat
 	 * @param format The Java SimpleDateFormat string.
 	 */
-	public void setDateFormat(final String format) {
+	public void setDateFormat(String format) {
 		
 		// Set date format
 		try {
-			dateFormat = new SimpleDateFormat(format);
+			this.dateFormat = new SimpleDateFormat(format);
 		} catch (Exception e) {
 			
 		}
@@ -310,9 +237,9 @@ public final class XmlDirectoryListing {
 	 * Sets the depth of the directory listing.
 	 * @param newDepth How deep into the directory structure to list.
 	 */
-	public void setDepth(final int newDepth) {
-		depthControl = true;
-		depth = newDepth;
+	public void setDepth(int newDepth) {
+		this.depthControl = true;
+		this.depth = newDepth;
 	}
 	
 	/**
@@ -322,7 +249,7 @@ public final class XmlDirectoryListing {
 	public void setExcluded(String rePattern) {
         
 		try {           
-            excludeRE = new RE(rePattern);
+            this.excludeRE = new RE(rePattern);
         } catch (RESyntaxException rese) {
             /*throw new Exception("Syntax error in regexp pattern '"
                                           + rePattern + "'", rese);
@@ -338,7 +265,7 @@ public final class XmlDirectoryListing {
 	public void setIncluded(String rePattern) {
         
 		try {   
-			includeRE  = (rePattern == null) ? null : new RE(rePattern);
+			this.includeRE  = (rePattern == null) ? null : new RE(rePattern);
         } catch (RESyntaxException rese) {
            // throw new Exception("Syntax error in regexp pattern '" + rePattern + "'", rese);
         	System.out.println("Syntax error in regexp pattern '" + rePattern + "'");
@@ -360,7 +287,7 @@ public final class XmlDirectoryListing {
 			// BAD SORT SPECIFIED!
 	
 		} else {
-			sort = newSort;
+			this.sort = newSort;
 		}
 		
 	}
@@ -370,7 +297,7 @@ public final class XmlDirectoryListing {
 	 * @param newReverse The value of new reverse, true / false
 	 */
 	public void setSortReverse(boolean newReverse) {
-		reverse = newReverse;		
+		this.reverse = newReverse;		
 	}
 	
 	/**
@@ -381,8 +308,7 @@ public final class XmlDirectoryListing {
 	 */
 	public File[] sortFiles(File[] files) {
 		
-        if (sort.equals("name")) {
-        	System.out.println("SORTING BY NAME");
+        if (this.sort.equals("name")) {
             Arrays.sort(files, new Comparator() {
                 public int compare(Object o1, Object o2) {
                     if (reverse) {
@@ -391,7 +317,7 @@ public final class XmlDirectoryListing {
                     return ((File)o1).getName().compareToIgnoreCase(((File)o2).getName());
                 }
             });
-        } else if (sort.equals("size")) {
+        } else if (this.sort.equals("size")) {
             Arrays.sort(files, new Comparator() {
                 public int compare(Object o1, Object o2) {
                     if (reverse) {
@@ -402,7 +328,7 @@ public final class XmlDirectoryListing {
                         new Long(((File)o2).length()));
                 }
             });
-        } else if (sort.equals("lastmodified")) {
+        } else if (this.sort.equals("lastmodified")) {
             Arrays.sort(files, new Comparator() {
                 public int compare(Object o1, Object o2) {
                     if (reverse) {
@@ -413,7 +339,7 @@ public final class XmlDirectoryListing {
                         new Long(((File)o2).lastModified()));
                 }
             });
-        } else if (sort.equals("directory")) {
+        } else if (this.sort.equals("directory")) {
             Arrays.sort(files, new Comparator() {
                 public int compare(Object o1, Object o2) {
                     File f1 = (File)o1;
