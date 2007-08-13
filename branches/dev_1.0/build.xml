@@ -17,6 +17,7 @@
 		<javac srcdir="${src.dir}" destdir="${classes.dir}">
 			<classpath>
         		<pathelement path="./lib/jakarta-regexp-1.5.jar"/>
+				<pathelement path="./lib/commons-cli-1.1.jar"/>
         		<pathelement path="${java.class.path}/"/>
        		</classpath>
 		</javac>	
@@ -29,14 +30,17 @@
     			
 			<manifest>
 				<attribute name="Main-Class" value="net.matthaynes.xml.dirlist.DirectoryListing"/>
-				<attribute name="Class-Path" value="./jakarta-regexp-1.5.jar"/>
+				<attribute name="Class-Path" value="./jakarta-regexp-1.5.jar ./commons-cli-1.1.jar"/>
 			</manifest>
 		</jar>
 	</target>
 
 	<target name="useCLI" description="Use the tool form command line" depends="jar">
 		<java jar="./lib/${ant.project.name}.jar" fork="true">
-         <arg value="."/>
+         
+		 <arg value="--reverse"/>
+		 <arg value="-sort hello"/>
+		 <arg value="."/>
        </java>
 	</target>
 
