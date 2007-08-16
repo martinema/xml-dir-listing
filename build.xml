@@ -8,8 +8,8 @@
 	
 
 	<target name="clean" description="Delete all generated files">
-		<delete dir="${classes.dir}" failonerror="false"/>
-		<delete file="${ant.project.name}.jar"/>
+		<delete dir="${classes.dir}" failonerror="true"/>
+		<delete file="./lib/${ant.project.name}.jar"/>
 	</target>
 
 	<target name="compile" description="Compiles the Task" depends="clean">
@@ -18,6 +18,7 @@
 			<classpath>
         		<pathelement path="./lib/jakarta-regexp-1.5.jar"/>
 				<pathelement path="./lib/commons-cli-1.1.jar"/>
+				<pathelement path="./lib/log4j-1.2.14.jar"/>
         		<pathelement path="${java.class.path}/"/>
        		</classpath>
 		</javac>	
@@ -25,23 +26,20 @@
 
 	<target name="jar" description="JARs the Task" depends="compile">
 		
-		<jar destfile="${lib.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+		<jar destfile="${lib.dir}/${ant.project.name}.jar">
 			<fileset dir="${classes.dir}" excludes="**/JaxpSaxExample.class" />
     			
 			<manifest>
 				<attribute name="Main-Class" value="net.matthaynes.xml.dirlist.DirectoryListing"/>
-				<attribute name="Class-Path" value="./jakarta-regexp-1.5.jar ./commons-cli-1.1.jar"/>
+				<attribute name="Class-Path" value=". ./jakarta-regexp-1.5.jar ./commons-cli-1.1.jar ./log4j-1.2.14.jar"/>
 			</manifest>
 		</jar>
 	</target>
 
 	<target name="useCLI" description="Use the tool form command line" depends="jar">
 		<java jar="./lib/${ant.project.name}.jar" fork="true">
-         
-		 <arg value="--reverse"/>
-		 <arg value="-sort hello"/>
-		 <arg value="."/>
-       </java>
+			<arg line="-sort directory -r -o tester.xml -i .html -d 2 doc"/>
+       	</java>
 	</target>
 
 	<target name="useTask" description="Use the Task" depends="jar">
