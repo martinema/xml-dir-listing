@@ -53,11 +53,8 @@ public final class XmlDirectoryListing {
     /** The regular expression for the exclude pattern. */
 	public RE excludeRE;
 	
-	/** Logging object */ 
-    // Initialize a logging category.  Here, we get THE ROOT CATEGORY
-    //static Category cat = Category.getRoot();
-    // Or, get a custom category
-    private static org.apache.log4j.Logger log = Logger.getLogger(XmlDirectoryListing.class);
+	/** Log4j logger */ 
+    private org.apache.log4j.Logger log = Logger.getLogger(XmlDirectoryListing.class);
 	
 	/**
 	 * Starts generation of XML directory listing.
@@ -67,7 +64,7 @@ public final class XmlDirectoryListing {
 	public void generateXmlDirectoryListing (final File dir, final OutputStream out) {
 		
 		if (dir.isDirectory()) {
-			log.setLevel(Level.FATAL);
+			
 			//System.out.println("Generating listing for " + dir.getAbsolutePath());
 			log.trace("Trace");
 			log.debug("Debug");

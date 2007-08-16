@@ -106,6 +106,8 @@ public final class DirectoryListing {
 				return;
 			}
 			
+			lister.log.setLevel(org.apache.log4j.Level.FATAL);
+			
 			// Run Class ========================================================
 			
 			// Begin listing			
