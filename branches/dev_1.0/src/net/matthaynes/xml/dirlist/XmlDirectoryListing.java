@@ -54,7 +54,7 @@ public final class XmlDirectoryListing {
 	public RE excludeRE;
 	
 	/** Log4j logger */ 
-    private org.apache.log4j.Logger log = Logger.getLogger(XmlDirectoryListing.class);
+    public org.apache.log4j.Logger log = Logger.getLogger(XmlDirectoryListing.class);
 	
 	/**
 	 * Starts generation of XML directory listing.
