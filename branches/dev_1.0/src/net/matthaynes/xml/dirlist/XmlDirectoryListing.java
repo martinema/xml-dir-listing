@@ -1,22 +1,13 @@
-/* 
- * To do:
- * 
- * Error checking everywhere!
- * Logging.
- * Specify imports more exactly.
- * Refacto, do we need get methods? Set methods?
- * Includes 
- * Excludes
- * Ant Task
- * 
- */
-
 package net.matthaynes.xml.dirlist;
 
 import java.io.*;
 import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+
+// Log4j
+import org.apache.log4j.*;
 
 //SAX classes.
 import org.xml.sax.*;
@@ -42,10 +33,10 @@ public final class XmlDirectoryListing {
 	protected static AttributesImpl atts;
 	
 	/** Sort method for the directory listing. Defaults to "name". */
-	protected String sort = "directory"; 
+	public String sort = "name"; 
 	
 	/** Reverse sort method. Defaults to false. */
-	protected boolean reverse = false;
+	public boolean reverse = false;
 	
 	/** Date format for date attributes. Defaults to "yyyyMMdd'T'HHmmss" */
 	public DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
@@ -54,13 +45,19 @@ public final class XmlDirectoryListing {
 	protected boolean depthControl = false;
 	
 	/** How deep to recurse into directory structure. */
-	protected int depth;
+	public int depth;
 	
     /** The regular expression for the include pattern. */
-    protected RE includeRE;
+	public RE includeRE;
     
     /** The regular expression for the exclude pattern. */
-    protected RE excludeRE;
+	public RE excludeRE;
+	
+	/** Logging object */ 
+    // Initialize a logging category.  Here, we get THE ROOT CATEGORY
+    //static Category cat = Category.getRoot();
+    // Or, get a custom category
+    private static org.apache.log4j.Logger log = Logger.getLogger(XmlDirectoryListing.class);
 	
 	/**
 	 * Starts generation of XML directory listing.
@@ -70,8 +67,14 @@ public final class XmlDirectoryListing {
 	public void generateXmlDirectoryListing (final File dir, final OutputStream out) {
 		
 		if (dir.isDirectory()) {
-			
-			System.out.println("Generating listing for " + dir.getAbsolutePath());
+			log.setLevel(Level.FATAL);
+			//System.out.println("Generating listing for " + dir.getAbsolutePath());
+			log.trace("Trace");
+			log.debug("Debug");
+			log.info("Info");
+			log.warn("Warn");
+			log.error("Error");
+			log.fatal("Fatal");
 			
 			try {
 				
@@ -153,7 +156,6 @@ public final class XmlDirectoryListing {
 		}
 	
 	}
-		
 	
     /**
      * Determines if a given File shall be visible.
@@ -166,7 +168,6 @@ public final class XmlDirectoryListing {
         return (this.includeRE == null) ? true : this.includeRE.match(path.getName());
     }
 
-    
     /**
      * Determines if a given File shall be excluded from viewing.
      * 
@@ -222,11 +223,11 @@ public final class XmlDirectoryListing {
 	 * Sets the date format for the class, must be valid SimpleDateFormat
 	 * @param format The Java SimpleDateFormat string.
 	 */
-	public void setDateFormat(String format) {
+	public void setDateFormat(SimpleDateFormat format) {
 		
 		// Set date format
 		try {
-			this.dateFormat = new SimpleDateFormat(format);
+			this.dateFormat = format;
 		} catch (Exception e) {
 			
 		}
