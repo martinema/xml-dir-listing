@@ -32,21 +32,22 @@ public final class DirectoryListing {
 			opt.addOption("s", "sort", true, "sort method");
 			opt.addOption("r", "reverse", false, "sort reverse");
 			opt.addOption("o", "output", true, "output file");
+			opt.addOption("v", "verbose", false, "verbose logging");
 			opt.addOption("f", "dateformat", true, "date format for listings");
 			opt.addOption("d", "depth", true, "depth of directory listings");
-			opt.addOption("i", "includes", true, "includes regular expression for directory listings");
-			opt.addOption("e", "excludes", true, "excludes regular expression for directory listings");
+			opt.addOption("i", "includes", true, "includes regEx for directory listings");
+			opt.addOption("e", "excludes", true, "excludes regEx for directory listings");
 						
 			// Parse arguments
 			BasicParser parser = new BasicParser();
 			CommandLine cl = parser.parse(opt, aArguments);
 			
 			// If help or no args,
-			if (cl.hasOption("h") || aArguments == null) {
+			if (cl.hasOption("h") || aArguments.length == 0 ) {
 				
 				// Display help and return (exit).
 				HelpFormatter f = new HelpFormatter();
-				f.printHelp("xml-dir-list", "\n options:", opt, "", true);
+				f.printHelp("xml-dir-list [options] source", "\n options:", opt, "");
 				return;
 				
 			}
@@ -76,7 +77,7 @@ public final class DirectoryListing {
 			
 			// Check for dateformat option and apply it to XmlDirectoryListing class
 			if (cl.hasOption("f")) {
-				lister.setDateFormat(new SimpleDateFormat(cl.getOptionValue("f")));
+				lister.setDateFormat(cl.getOptionValue("f"));
 			}
 			
 			// Check for dateformat option and apply it to XmlDirectoryListing class
@@ -94,6 +95,13 @@ public final class DirectoryListing {
 				lister.setExcluded(cl.getOptionValue("e"));
 			}	
 			
+			// Check for verbose flag. Set logger accordingly.
+			if (cl.hasOption("v")) {
+				lister.log.setLevel(org.apache.log4j.Level.DEBUG);
+			} else {
+				lister.log.setLevel(org.apache.log4j.Level.INFO);
+			}
+			
 			// Check for directory as last remaining argument 
 			if (cl.getArgs().length == 1) {
 				// Get specified directory
@@ -106,7 +114,6 @@ public final class DirectoryListing {
 				return;
 			}
 			
-			lister.log.setLevel(org.apache.log4j.Level.FATAL);
 			
 			// Run Class ========================================================
 			

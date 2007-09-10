@@ -38,15 +38,14 @@
 
 	<target name="useCLI" description="Use the tool form command line" depends="jar">
 		<java jar="./lib/${ant.project.name}.jar" fork="true">
-			<arg line="-sort directory -r -o tester.xml -i .html -d 2 doc"/>
+			<arg line="-sort directory -r -f yyyy-MM-d -o tester.xml ."/>
        	</java>
 	</target>
 
 	<target name="useTask" description="Use the Task" depends="jar">
 		<taskdef name="xml-dir-list" classname="net.matthaynes.xml.dirlist.AntFileListing"
-			classpath="bin/${ant.project.name}.jar"/>
-		<xml-dir-list verbose="true" help="true"
-			srcDir="." destFile="fileList.xml"/>
+			classpath="lib/${ant.project.name}.jar"/>
+		<xml-dir-list verbose="true" srcDir="." destFile="fileList.xml"/>
 	</target>
 
 </project>
