@@ -56,6 +56,26 @@ public final class XmlDirectoryListing {
 	/** Log4j logger */ 
     public org.apache.log4j.Logger log = Logger.getLogger(XmlDirectoryListing.class);
 	
+    /** Log4j appender */
+    public Appender myAppender;
+    
+    /** Log4j PatternLayout */
+    public PatternLayout myLayout;
+    
+    /**
+     * Consturctor. Thus far only sets up log4j appender.
+     */
+    public XmlDirectoryListing() {
+    	
+    	/* Instantiate a layout and an appender, assign layout to appender programmatically */
+    	myLayout = new PatternLayout();
+    	myAppender = new ConsoleAppender(myLayout);    // Appender is
+ 
+    	// Assign appender to the logger programmatically 
+    	log.addAppender(myAppender); 
+
+    }
+    
 	/**
 	 * Starts generation of XML directory listing.
 	 * @param dir The directory to begin listing.
@@ -65,15 +85,9 @@ public final class XmlDirectoryListing {
 		
 		if (dir.isDirectory()) {
 			
-			//System.out.println("Generating listing for " + dir.getAbsolutePath());
-			log.trace("Trace");
-			log.debug("Debug");
-			log.info("Info");
-			log.warn("Warn");
-			log.error("Error");
-			log.fatal("Fatal");
-			
 			try {
+				
+				log.info("Generating listing for " + dir.getAbsolutePath());
 				
 				// Acts as an holder for a transformation result, which may be XML, plain Text, 
 				// HTML, or some other form of markup.
@@ -108,19 +122,21 @@ public final class XmlDirectoryListing {
 				
 				// SAX ContentHandler parse event
 				hd.startDocument();
+				log.debug("Starting XML document");
 				
 				createElement(dir, depth, true);
 							
 				// SAX ContentHandler parse event
 				hd.endDocument();
+				log.debug("Ending XML document");
+				log.info("XML document generated.");
 							
 			} catch (Exception e) {
-				
+				log.fatal("Fatal error in generating document: " +e);
 			}
 			
 		} else {
-			// ERROR DIRECTORY IS NOT VALID
-			System.out.print(dir.getAbsolutePath() + " is not a valid directory.");
+			log.error(dir.getAbsolutePath() + " is not a valid directory.");
 		}
 		
 	}
@@ -131,19 +147,26 @@ public final class XmlDirectoryListing {
 	 */
 	public void createElement(final File file, final int depth, boolean isRoot) {
 		
-		if (this.isIncluded(file) && !this.isExcluded(file) || isRoot == true) {
+		log.debug("Analysing "+ file.getAbsolutePath());
+		
+		if (file.isDirectory() || this.isIncluded(file) && !this.isExcluded(file) || isRoot == true) {
 
 			this.setAttributes(file);
 			
 			String fileType = (file.isDirectory()) ? "directory" : "file"; 
 			
 			try{
+				
+				log.debug("Starting element " + file.getAbsolutePath());
+				
 				// Output details of the file
 				hd.startElement("","",fileType,atts);
 				
 				if (fileType == "directory") {
 					this.parseDirectory(file, depth);
 				}
+				
+				log.debug("Ending element " + file.getAbsolutePath());
 				
 				hd.endElement("","",fileType);
 			
@@ -162,7 +185,9 @@ public final class XmlDirectoryListing {
      *         false otherwise.
      */
     public boolean isIncluded(File path) {
-        return (this.includeRE == null) ? true : this.includeRE.match(path.getName());
+    	 boolean incExB = (this.includeRE == null) ? true : this.includeRE.match(path.getName());
+    	 if (!incExB) log.debug("Excluding: " + path.getAbsolutePath());
+    	 return incExB;
     }
 
     /**
@@ -173,8 +198,10 @@ public final class XmlDirectoryListing {
      *         true otherwise.
      */
     public boolean isExcluded(File path) {
-        return (this.excludeRE == null) ? false : this.excludeRE.match(path.getName());
-    }
+    	boolean incExB = (this.excludeRE == null) ? false : this.excludeRE.match(path.getName());
+    	if (incExB) log.debug("Excluding: " + path.getAbsolutePath());
+    	return incExB;
+   	}
 	
 	/**
 	 * Sort all files in directory, create an element for each.
@@ -185,18 +212,21 @@ public final class XmlDirectoryListing {
 	public void parseDirectory(File dir, final int depth) {
 		
 		if (!this.depthControl || depth > 0) {
-			
-			// Store all files in an array and sort.
-			File[] files = sortFiles(dir.listFiles());
-			
-			// Loop through array and create element for each file.
-			for (int i=0;i<files.length;i++) {
 
-				createElement(files[i], depth -1, false);
-
+			// Catch for null pointer, occurs when trying to access restricted dir
+			try {
+				// Store all files in an array and sort.
+				File[] files = sortFiles(dir.listFiles());
+			
+				// Loop through array and create element for each file.
+				for (int i=0;i<files.length;i++) {
+						createElement(files[i], depth -1, false);
+				}
+				
+			} catch (Exception e) {
+				log.error("Error listing directory contents: " + e);
 			}
 		}
-		
 	}
 	
 	/**
@@ -205,6 +235,8 @@ public final class XmlDirectoryListing {
 	 */
 	public void setAttributes(File file) {
 
+		log.debug("Setting attributes for: " + file.getAbsolutePath());
+		
 		// Clear current attributes
 		atts.clear();
 		
@@ -220,16 +252,17 @@ public final class XmlDirectoryListing {
 	 * Sets the date format for the class, must be valid SimpleDateFormat
 	 * @param format The Java SimpleDateFormat string.
 	 */
-	public void setDateFormat(SimpleDateFormat format) {
+	public void setDateFormat(String format) {
 		
 		// Set date format
 		try {
-			this.dateFormat = format;
+			this.dateFormat = new SimpleDateFormat(format);
+			log.info("Setting date format to: " + format);
 		} catch (Exception e) {
-			
-		}
-		
+			log.error("Error parsing date format: " + e);
+		}		
 	}
+	
 
 	/**
 	 * Sets the depth of the directory listing.
@@ -238,7 +271,9 @@ public final class XmlDirectoryListing {
 	public void setDepth(int newDepth) {
 		this.depthControl = true;
 		this.depth = newDepth;
+		log.info("Setting directory listing depth to: " + Integer.toString(newDepth));
 	}
+	
 	
 	/**
 	 * Sets the exclude regular expression
@@ -248,13 +283,12 @@ public final class XmlDirectoryListing {
         
 		try {           
             this.excludeRE = new RE(rePattern);
+            log.info("Setting excludes regular expression to: " + rePattern);
         } catch (RESyntaxException rese) {
-            /*throw new Exception("Syntax error in regexp pattern '"
-                                          + rePattern + "'", rese);
-                                          */
-		   
-        }
+        	log.error("Error parsing regular expression: " + rese);
+	   }
 	}
+	
 	
 	/**
 	 * Sets the include regular expression
@@ -264,11 +298,12 @@ public final class XmlDirectoryListing {
         
 		try {   
 			this.includeRE  = (rePattern == null) ? null : new RE(rePattern);
+			log.info("Setting includes regular expression to: " + rePattern);
         } catch (RESyntaxException rese) {
-           // throw new Exception("Syntax error in regexp pattern '" + rePattern + "'", rese);
-        	System.out.println("Syntax error in regexp pattern '" + rePattern + "'");
+        	log.error("Error parsing regular expression: " + rese);
         }
 	}
+	
 	
 	/**
 	 * Sets the sort type, returns error if bad type specified.
@@ -276,27 +311,30 @@ public final class XmlDirectoryListing {
 	 */
 	public void setSort(String newSort) {
 		
-		if (!newSort.equals("directory")||
-				!newSort.equals("name")||
-				!newSort.equals("size")||
-				!newSort.equals("lastmodified")) {
+		if (newSort.equals("directory")||
+				newSort.equals("name")||
+				newSort.equals("size")||
+				newSort.equals("lastmodified")) {
 			
-			// ERROR !!!
-			// BAD SORT SPECIFIED!
+			this.sort = newSort;
+			log.info("Setting sort to: " + newSort);			
 	
 		} else {
-			this.sort = newSort;
+			log.error("Error setting sort. '" + newSort + "' is not a recognized sort parameter.");
 		}
 		
 	}
+	
 	
 	/**
 	 * Sets the sort reverse attribute.
 	 * @param newReverse The value of new reverse, true / false
 	 */
 	public void setSortReverse(boolean newReverse) {
-		this.reverse = newReverse;		
+		this.reverse = newReverse;	
+		log.info("Setting reverse sorting to: " + (newReverse ? "on" : "off"));
 	}
+	
 	
 	/**
 	 * Sorts the array of files based upon the specified sort order. Defaults to directory.
