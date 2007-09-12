@@ -5,15 +5,9 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
 /**
-* Ant controller for Directory Listing to XML.
-* Matt Haynes, November 2006
-*
-* Creates an Ant task for the Directory Listing to XML app
-*
-* Example Usage (in Ant):
-*    <xml-dir-list verbose="true" help="true" srcDir="C:\Program Files\Apache Ant\apache-ant-1.6.5\lib" destFile="C:\hello.xml" />
-*
+* Ant task interface for XML Directory Listing Class
 **/
+
 
 public final class AntFileListing extends Task {
 	
@@ -102,7 +96,7 @@ public final class AntFileListing extends Task {
 	    	    
 	    /**
 	     * Gets the srcdir attribute from the ant task
-	     * @param srcdir
+	     * @param directory
 	     */
 	    public void setSrcDir(String directory) {
 	    	this.directory = directory;
