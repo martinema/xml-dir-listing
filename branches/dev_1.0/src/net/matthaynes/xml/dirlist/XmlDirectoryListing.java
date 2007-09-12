@@ -23,6 +23,10 @@ import javax.xml.transform.sax.*;
 import org.apache.regexp.RE;
 import org.apache.regexp.RESyntaxException;
 
+/**
+ * XML Directory Listing Class
+ */
+
 public final class XmlDirectoryListing {
 	
 	// SAX stuff, comment better, understand more!

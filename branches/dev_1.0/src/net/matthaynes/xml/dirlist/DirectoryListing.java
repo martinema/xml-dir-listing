@@ -8,6 +8,10 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.ParseException;
 
+/**
+ * Command line interface for XML Directory Listing class.
+ */
+
 public final class DirectoryListing {
 
 	/** CLI options object */
