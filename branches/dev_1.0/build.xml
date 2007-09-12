@@ -5,10 +5,12 @@
 	<property name="classes.dir" value="classes"/>
 	<property name="bin.dir" value="bin"/>
 	<property name="lib.dir" value="lib"/>
+	<property name="javadoc.dir" value="docs/api"/>
 	
 
 	<target name="clean" description="Delete all generated files">
 		<delete dir="${classes.dir}" failonerror="true"/>
+		<delete dir="${javadoc.dir}" failonerror="true"/>
 		<delete file="./lib/${ant.project.name}.jar"/>
 	</target>
 
@@ -36,7 +38,7 @@
 		</jar>
 	</target>
 
-	<target name="use-cli" description="Use the tool form command line" depends="jar">
+	<target name="use-cli" description="Use the tool from command line" depends="jar">
 		<java jar="./lib/${ant.project.name}.jar" fork="true">
 			<arg line="-sort directory -r -f yyyy-MM-d -o tester.xml ."/>
        	</java>
@@ -49,9 +51,11 @@
 	</target>
 	
 	<target name="generate-javadoc" description="Generates javadocs">
+		
+		<mkdir dir="${javadoc.dir}" />
 
 	  	<javadoc packagenames="net.matthaynes.xml.dirlist"
-	    	    destdir="docs/api"
+	    	    destdir="${javadoc.dir}"
 	           	author="true"
 	           	version="true"
 	           	use="true"
