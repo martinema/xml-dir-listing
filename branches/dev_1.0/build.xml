@@ -36,16 +36,41 @@
 		</jar>
 	</target>
 
-	<target name="useCLI" description="Use the tool form command line" depends="jar">
+	<target name="use-cli" description="Use the tool form command line" depends="jar">
 		<java jar="./lib/${ant.project.name}.jar" fork="true">
 			<arg line="-sort directory -r -f yyyy-MM-d -o tester.xml ."/>
        	</java>
 	</target>
 
-	<target name="useTask" description="Use the Task" depends="jar">
+	<target name="use-task" description="Use the Task" depends="jar">
 		<taskdef name="xml-dir-list" classname="net.matthaynes.xml.dirlist.AntFileListing"
 			classpath="lib/${ant.project.name}.jar"/>
 		<xml-dir-list verbose="true" srcDir="." destFile="fileList.xml"/>
 	</target>
+	
+	<target name="generate-javadoc" description="Generates javadocs">
+
+	  	<javadoc packagenames="net.matthaynes.xml.dirlist"
+	    	    destdir="docs/api"
+	           	author="true"
+	           	version="true"
+	           	use="true"
+	           	windowtitle="XML Directory Listing API">
+				
+				<classpath>
+					<pathelement path="./lib/jakarta-regexp-1.5.jar"/>
+					<pathelement path="./lib/commons-cli-1.1.jar"/>
+					<pathelement path="./lib/log4j-1.2.14.jar"/>
+					<pathelement path="${java.class.path}/"/>
+				</classpath>
+	
+				<fileset dir="${src.dir}" defaultexcludes="yes">
+					<exclude name="net/matthaynes/xml/dirlist/JaxpSaxExample.java"/>
+				</fileset>
+
+			
+	  	</javadoc>
+	  
+  	</target>
 
 </project>
