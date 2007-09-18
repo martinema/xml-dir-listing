@@ -3,9 +3,9 @@
 
 = To-do List =
 
- * Document log4j extensions
  * Link to latest API via svn web interface
  * General docs 
+ 
  
  
  
