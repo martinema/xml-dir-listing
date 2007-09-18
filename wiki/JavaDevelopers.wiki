@@ -1,10 +1,11 @@
 #summary Some notes on using the XmlDirectoryListing class in Java applications
 #labels Featured,Phase-Implementation
 
-== XmlDirectoryListing in Java apps == 
+== !XmlDirectoryListing in Java apps == 
 
-Please feel free to use the XmlDirectoryListing class in your Java applications. The binary distribution comes with a Javadoc API.
+Please feel free to use the !XmlDirectoryListing class in your Java applications. The binary distribution comes with a Javadoc API.
 
 The class uses [http://logging.apache.org log4j] which can be extended in your application.
 
 The [http://xml-dir-listing.googlecode.com/svn/tags/version_0.1/lib/xml-dir-listing.dtd Doctype] may also be of interest.
+ 
