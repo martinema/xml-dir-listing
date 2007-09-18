@@ -8,6 +8,8 @@ If you've installed XML Directory Listing as described in the [InstallationGuide
 This shoudl produce the following output:
 
 {{{
+$ xml-dir-listing
+
 usage: xml-dir-list [options] source
 
 options:
@@ -49,6 +51,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
  
