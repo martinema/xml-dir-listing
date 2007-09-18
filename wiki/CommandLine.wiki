@@ -32,17 +32,23 @@ Only two command line arguments are required for the xml-dirlisting application,
 xml-dir-listing -o list.xml "C:\Some Directory"
 }}}
 
+More command line options may be specified to further configure the XML output. In this example the application is used with verbose output, with the output sorted by file size and the date formats set to just yyyy-MM-dd (e.g. 2007-09-18).
+
+{{{
+xml-dir-listing -v -s filesize -f "yyyy-MM-dd" -o list.xml "C:\Some Directory"
+}}}
+
 
 == Command line options in more detail ==
 
 || *Argument* || *Description* || *Required* ||
 || -o, --output || The output XML file. || Yes ||
-|| -d, depth || How deep into the directory structure to list || No ||
+|| -d, --depth || How deep into the directory structure to list || No ||
 || -e, --excludes || A regex pattern to exclude files from listing || No ||
 || -i, --includes || A regex pattern to include files from listing || No ||
 || -r, -reverse || If present sort order is reversed. || No ||
 || -s, --sort || Sort order. Options are `directory`, `lastmodified`, `name`, `size`. Defaults to `name` || No ||
-|| -f, dateformat || The date format for date based attributes, [http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html Java SimpleDateFormat]. Defaults to `yyyyMMdd'T'HHmmss` || No ||
+|| -f, --dateformat || The date format for date based attributes, [http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html Java SimpleDateFormat]. Defaults to `yyyyMMdd'T'HHmmss` || No ||
 || -v, --verbose || Verbose output on || No ||
 
 == Doctype ==
@@ -71,6 +77,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
  
