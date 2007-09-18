@@ -33,6 +33,18 @@ xml-dir-listing -o list.xml "C:\Some Directory"
 }}}
 
 
+== Command line options in more detail ==
+
+|| *Argument* || *Description* || *Required* ||
+|| -o, --output || The output XML file. || Yes ||
+|| -d, depth || How deep into the directory structure to list || No ||
+|| -e, --excludes || A regex pattern to exclude files from listing || No ||
+|| -i, --includes || A regex pattern to include files from listing || No ||
+|| -r, -reverse || If present sort order is reversed. || No ||
+|| -s, --sort || Sort order. Options are `directory`, `lastmodified`, `name`, `size`. Defaults to `name` || No ||
+|| -f, dateformat || The date format for date based attributes, [http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html Java SimpleDateFormat]. Defaults to `yyyyMMdd'T'HHmmss` || No ||
+|| -v, --verbose || Verbose output on || No ||
+
 == Doctype ==
 
 The doctype for the output XML is as follows:
@@ -59,6 +71,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
  
