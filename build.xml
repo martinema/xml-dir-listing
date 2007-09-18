@@ -30,13 +30,6 @@
 		
 		<jar destfile="${lib.dir}/${ant.project.name}.jar">
 			<fileset dir="${classes.dir}" excludes="**/JaxpSaxExample.class" />
-    			
-			<manifest>
-				<attribute name="Main-Class" value="net.matthaynes.xml.dirlist.DirectoryListing"/>
-				<!--
-				<attribute name="Class-Path" value=". ./jakarta-regexp-1.5.jar ./commons-cli-1.1.jar ./log4j-1.2.14.jar"/>
-				-->				
-			</manifest>
 		</jar>
 	</target>
  
