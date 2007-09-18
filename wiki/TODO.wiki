@@ -4,7 +4,9 @@
 = To-do List =
 
  * Link to latest API via svn web interface
- * General docs 
+ * General docs
+ * Windows batch file 
+ 
  
  
  
