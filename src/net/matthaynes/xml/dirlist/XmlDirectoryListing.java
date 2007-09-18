@@ -117,7 +117,7 @@ public final class XmlDirectoryListing {
 				
 				// Set an output property that will be in effect for the transformation.
 				serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
-				// serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"users.dtd");
+				serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"http://xml-dir-listing.googlecode.com/svn/branches/dev_1.0/lib/xml-dir-listing.dtd");
 				serializer.setOutputProperty(OutputKeys.INDENT,"yes");
 	
 				// Enables the user of the TransformerHandler to set the to set the Result 
@@ -154,8 +154,12 @@ public final class XmlDirectoryListing {
 		log.debug("Analysing "+ file.getAbsolutePath());
 		
 		if (file.isDirectory() || this.isIncluded(file) && !this.isExcluded(file) || isRoot == true) {
-
-			this.setAttributes(file);
+			
+			if (isRoot) {
+				this.setAttributes(file, true);
+			} else {
+				this.setAttributes(file);
+			}
 			
 			String fileType = (file.isDirectory()) ? "directory" : "file"; 
 			
@@ -249,6 +253,33 @@ public final class XmlDirectoryListing {
 		atts.addAttribute("","","lastModified","CDATA",String.valueOf(file.lastModified()));
 		atts.addAttribute("","","date","CDATA",this.dateFormat.format(new Date(file.lastModified())));
 		atts.addAttribute("","","absolutePath","CDATA",file.getAbsolutePath());
+		
+	}
+	
+	/**
+	 * Sets all attributes for the root node 
+	 * @param file The file to set attributes for
+	 * @param isRoot Is this the root node
+	 */
+	public void setAttributes(File file, boolean isRoot) {
+
+		if (isRoot) {
+			
+			String reverse = (this.reverse) ? "true" : "false";
+			
+			log.debug("Setting attributes for root node: " + file.getAbsolutePath());
+			
+			// Clear current attributes
+			atts.clear();
+			
+			atts.addAttribute("","","name","CDATA",file.getName());
+			atts.addAttribute("","","size","CDATA",String.valueOf(file.length()));
+			atts.addAttribute("","","lastModified","CDATA",String.valueOf(file.lastModified()));
+			atts.addAttribute("","","date","CDATA",this.dateFormat.format(new Date(file.lastModified())));
+			atts.addAttribute("","","absolutePath","CDATA",file.getAbsolutePath());
+			atts.addAttribute("","","sort","CDATA",this.sort);
+			atts.addAttribute("","","reverse","CDATA",reverse);
+		}
 		
 	}
 	
