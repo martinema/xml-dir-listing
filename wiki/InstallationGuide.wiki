@@ -9,7 +9,9 @@ Download the latest distribution form the downloads section of this site.
 
 == System Requirements == 
 
-XML Directory Listing should run on most operating systems but has primarily been tested on Windows, Linux and Mac OS X. It requires [http://java.sun.com Java] Runtime Environment 1.4+.
+XML Directory Listing should run on most operating systems but has primarily been tested on Windows, Linux and Mac OS X. 
+
+It requires [http://java.sun.com Java] Runtime Environment 1.4+.
 
 == Installation ==
  
@@ -18,19 +20,13 @@ The binary distribution of XML Directory Listing consists of the following direc
 {{{
 xml-dir-listing
    |
-   +--- README, LICENSE, fetch.xml, other text files. //basic information
+   +--- README, LICENSE, other text files. //basic information
    +--- bin  // contains launcher scripts
    |
-   +--- lib  // contains Ant jars plus necessary dependencies
+   +--- lib  // contains XML Directory Listing jars plus necessary dependencies
    |
    +--- docs // contains documentation
-   |      |
-   |      +--- images  // various logos for html documentation
-   |      |
-   |      +--- manual  // Ant documentation (a must read ;-)
-   |
-   +--- etc // contains xsl goodies to:
-            //   - create an enhanced report from xml output of various tasks.
-            //   - migrate your build files and get rid of 'deprecated' warning
-            //   - ... and more ;-)
+          |
+          +--- api     // Contains the Java API
 }}}
+ 
