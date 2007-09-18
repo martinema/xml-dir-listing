@@ -41,7 +41,7 @@ Please see the [http://ant.apache.org/manual/using.html#external-tasks External 
 || depth || How deep into the directory structure to list || No ||
 || excludesRegEx || A regex pattern to exclude files from listing || No ||
 || includesRegEx || A regex pattern to include files from listing || No ||
-|| reverse || If `true` sort odrder is reversed. Defaults to `false` || No ||
+|| reverse || If `true` sort order is reversed. Defaults to `false` || No ||
 || sort || Sort order. Options are `directory`, `lastmodified`, `name`, `size`. Defaults to `name` || No ||
 || dateFormat || The date format for date based attributes, [http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html Java SimpleDateFormat]. Defaults to `yyyyMMdd'T'HHmmss` || No ||
 
@@ -65,6 +65,7 @@ Using the task on the current directory with depth set to 5 and verbose output:
 ==Support==
 
 If you have any issues then please let us know, I will see what I can do.  I would also be very interested to hear what platforms and Ant versions people are using as I have not had time to extensivley test this task.
+ 
  
  
  
