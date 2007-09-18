@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Shell script to call directory listing java class
+java -jar ../lib/xml-dir-listing.jar $@
