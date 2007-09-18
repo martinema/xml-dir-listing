@@ -24,6 +24,14 @@ options:
  -v,--verbose            verbose logging
 }}}
 
+== Running the application ==
+
+Only two command line arguments are required for the xml-dirlisting application, an output file and a directory to list.
+
+{{{
+xml-dir-listing -o list.xml "C:\Some Directory"
+}}}
+
 
 == Doctype ==
 
@@ -51,6 +59,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
  
