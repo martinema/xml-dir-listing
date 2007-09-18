@@ -6,7 +6,9 @@
     lastModified CDATA #REQUIRED
     date         CDATA #REQUIRED
     size         CDATA #REQUIRED
-    absolutePath CDATA #REQUIRED>
+    absolutePath CDATA #REQUIRED
+    sort 		 CDATA #IMPLIED
+    reverse		 CDATA #IMPLIED>
  <!ELEMENT file EMPTY>
  <!ATTLIST file
     name         CDATA #REQUIRED
