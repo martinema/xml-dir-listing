@@ -15,7 +15,8 @@ XML Directory Listing should run on most operating systems but has primarily bee
  
 The binary distribution of XML Directory Listing consists of the following directory layout:
 
-  xml-dir-listing
+{{{
+xml-dir-listing
    |
    +--- README, LICENSE, fetch.xml, other text files. //basic information
    +--- bin  // contains launcher scripts
@@ -32,6 +33,4 @@ The binary distribution of XML Directory Listing consists of the following direc
             //   - create an enhanced report from xml output of various tasks.
             //   - migrate your build files and get rid of 'deprecated' warning
             //   - ... and more ;-)
-
- 
- 
+}}}
