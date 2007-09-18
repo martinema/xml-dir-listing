@@ -33,13 +33,15 @@
     			
 			<manifest>
 				<attribute name="Main-Class" value="net.matthaynes.xml.dirlist.DirectoryListing"/>
+				<!--
 				<attribute name="Class-Path" value=". ./jakarta-regexp-1.5.jar ./commons-cli-1.1.jar ./log4j-1.2.14.jar"/>
+				-->				
 			</manifest>
 		</jar>
 	</target>
  
 	<target name="use-cli" description="Use the tool from command line" depends="jar">
-		<java jar="./lib/${ant.project.name}.jar" fork="true">
+		<java jar="./lib/${ant.project.name}.jar" fork="true" classpath="${lib.dir}">
 			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml ."/>
        	</java>
 	</target>
