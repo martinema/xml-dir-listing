@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="xml-dir-list" basedir="." default="jar">
+<project name="xml-dir-listing" basedir="." default="jar">
 
 	<property name="src.dir" value="src"/>
 	<property name="classes.dir" value="classes"/>
@@ -37,10 +37,10 @@
 			</manifest>
 		</jar>
 	</target>
-
+ 
 	<target name="use-cli" description="Use the tool from command line" depends="jar">
 		<java jar="./lib/${ant.project.name}.jar" fork="true">
-			<arg line="-sort directory -r -f yyyy-MM-d -o tester.xml ."/>
+			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml ."/>
        	</java>
 	</target>
 
