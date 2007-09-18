@@ -5,10 +5,12 @@
     name         CDATA #REQUIRED
     lastModified CDATA #REQUIRED
     date         CDATA #REQUIRED
-    size         CDATA #REQUIRED>
+    size         CDATA #REQUIRED
+    absolutePath CDATA #REQUIRED>
  <!ELEMENT file EMPTY>
  <!ATTLIST file
     name         CDATA #REQUIRED
     lastModified CDATA #REQUIRED
     date         CDATA #REQUIRED
-    size         CDATA #REQUIRED>
+    size         CDATA #REQUIRED
+    absolutePath CDATA #REQUIRED>
