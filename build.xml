@@ -29,14 +29,15 @@
 	<target name="jar" description="JARs the Task" depends="compile">
 		
 		<jar destfile="${lib.dir}/${ant.project.name}.jar">
-			<fileset dir="${classes.dir}" excludes="**/JaxpSaxExample.class" />
+			<fileset dir="${classes.dir}" />
+			<fileset dir="." includes="NOTICE LICENSE" defaultexcludes="yes" />
 		</jar>
 	</target>
  
 	<target name="use-cli" description="Use the tool from command line" depends="jar">
-		<java jar="./lib/${ant.project.name}.jar" fork="true" classpath="${lib.dir}">
+		<exec executable="${bin.dir}/xml-dir-listing">
 			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml ."/>
-       	</java>
+		</exec>       	
 	</target>
 
 	<target name="use-task" description="Use the Task" depends="jar">
@@ -63,9 +64,7 @@
 					<pathelement path="${java.class.path}/"/>
 				</classpath>
 	
-				<fileset dir="${src.dir}" defaultexcludes="yes">
-					<exclude name="net/matthaynes/xml/dirlist/JaxpSaxExample.java"/>
-				</fileset>
+				<fileset dir="${src.dir}" defaultexcludes="yes" />
 
 			
 	  	</javadoc>
