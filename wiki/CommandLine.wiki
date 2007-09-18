@@ -29,6 +29,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED
     sort         CDATA #IMPLIED
     reverse	 CDATA #IMPLIED>
+
  <!ELEMENT file EMPTY>
  <!ATTLIST file
     name         CDATA #REQUIRED
@@ -38,5 +39,6 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
