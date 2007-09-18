@@ -1,0 +1,40 @@
+#summary A guide to using the XML Directory Listing app from the command line
+#labels Featured,Phase-Deploy
+
+= Introduction =
+
+Add your content here.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+ == Doctype ==
+
+The doctype for the output XML is as follows:
+
+{{{
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+ <!ELEMENT directory (directory|file)*>
+ <!ATTLIST directory
+    name         CDATA #REQUIRED
+    lastModified CDATA #REQUIRED
+    date         CDATA #REQUIRED
+    size         CDATA #REQUIRED
+    absolutePath CDATA #REQUIRED
+    sort 		 CDATA #IMPLIED
+    reverse		 CDATA #IMPLIED>
+ <!ELEMENT file EMPTY>
+ <!ATTLIST file
+    name         CDATA #REQUIRED
+    lastModified CDATA #REQUIRED
+    date         CDATA #REQUIRED
+    size         CDATA #REQUIRED
+    absolutePath CDATA #REQUIRED>
+}}}
+
