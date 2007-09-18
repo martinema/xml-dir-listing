@@ -1,0 +1,53 @@
+#summary Page describing the use of xml-dir-listing in Apache Ant
+
+=XML Directory Listing Ant Task=
+
+*A custom task for Apache Ant which acts as an interface to the XML Directory Listing program.*
+
+==Description==
+
+The XML Directory Listing Ant task acts as an interface to the XmlDirectoryListing Java class. The task can be used to generate an XML representation of a directory, this could then be taken and transformed further with Ant for different end uses.
+
+  * Tested with Apache Ant 6.5+. Please let us know if the task works with earlier versions!!
+
+==Parameters==
+
+|| *Attribute* || *Description* || *Required* ||
+|| srcDir || The directory to generate a listing for. || Yes ||
+|| destFile || The output XML file. || Yes ||
+|| depth || How deep into the directory structure to list || No ||
+|| excludesRegEx || A regex pattern to exclude files from listing || No ||
+|| includesRegEx || A regex pattern to include files from listing || No ||
+|| reverse || If 'true' sort odrder is reversed. Defaults to 'false' || No ||
+|| sort || Sort order. Options are 'directory', 'lastmodified', 'name', 'size'. Defaults to 'name' ||
+|| dateFormat || The date format for date based attributes, Java SimpleDateFormat. Defaults to 'yyyyMMdd'T'HHmmss' || No ||
+
+==Examples==
+
+Define the task in your build file:
+
+{{{
+<taskdef name="jsmin"
+        classname="net.matthaynes.jsmin.JSMin_Task"
+        classpath="/path/to/jsmin.jar"/>
+}}}
+
+Using the task on a single file, with the _.min_ suffix added to the file extension:
+
+{{{ 
+<jsmin srcfile="file.js" suffix="true" />
+}}}
+
+Using the task with a fileset, and an output directory specified:
+
+{{{
+<jsmin destdir="./outputdirectory">
+       <fileset dir="./somejsdirectory/" includes="**/*.js"/>
+</jsmin>
+}}}
+
+==Support==
+
+If you have any issues then please let us know, I will see what I can do.  I would also be very interested to hear what platforms and Ant versions people are using as I have not had time to extensivley test this task.
+
+ 
