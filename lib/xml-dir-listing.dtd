@@ -1,12 +1,8 @@
- <!ELEMENT directory (directory|file)*>
-  <!ATTLIST directory
-    name         CDATA #REQUIRED
-    lastModified CDATA #REQUIRED
-    date         CDATA #REQUIRED
-    size         CDATA #REQUIRED>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
-  <!ELEMENT file #EMPTY>
-  <!ATTLIST file
+ <!ELEMENT directory (directory|file)*>
+ <!ELEMENT file #EMPTY>
+ <!ATTLIST (directory|file)
     name         CDATA #REQUIRED
     lastModified CDATA #REQUIRED
     date         CDATA #REQUIRED
