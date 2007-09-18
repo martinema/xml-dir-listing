@@ -47,7 +47,7 @@
 	<target name="use-task" description="Use the Task" depends="jar">
 		<taskdef name="xml-dir-list" classname="net.matthaynes.xml.dirlist.AntFileListing"
 			classpath="lib/${ant.project.name}.jar"/>
-		<xml-dir-list verbose="true" srcDir="." destFile="fileList.xml"/>
+		<xml-dir-list reverse="true" verbose="true" srcDir="." destFile="fileList.xml"/>
 	</target>
 	
 	<target name="generate-javadoc" description="Generates javadocs">
