@@ -1,17 +1,27 @@
 #summary A guide to using the XML Directory Listing app from the command line
-#labels Featured,Phase-Deploy
+#labels Featured,Phase-Deploy,Phase-Implementation
 
-= Introduction =
+= Using XML Directory Listing from the command line =
 
-Add your content here.
+If you've installed XML Directory Listing as described in the [InstallationGuide Installation Guide], running the app from the command-line is simple: just type xml-dir-listing.
 
+This shoudl produce the following output:
 
-= Details =
+{{{
+usage: xml-dir-list [options] source
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+options:
+ -d,--depth <arg>        depth of directory listings
+ -e,--excludes <arg>     excludes regEx for directory listings
+ -f,--dateformat <arg>   date format for listings
+ -h,--help               print this message
+ -i,--includes <arg>     includes regEx for directory listings
+ -o,--output <arg>       output file
+ -r,--reverse            sort reverse
+ -s,--sort <arg>         sort method
+ -v,--verbose            verbose logging
+}}}
+
 
 == Doctype ==
 
@@ -39,6 +49,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
  
