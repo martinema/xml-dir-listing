@@ -31,7 +31,7 @@ All files needed by Ant to use the task:
  * jakarta-regexp.jar
  * log4j.jar
 
-Please see [] for more information on using external tasks in [http://ant.apache.org/ Apache Ant]
+Please see the [http://ant.apache.org/manual/using.html#external-tasks External Tasks page] in the ant manual for more information on using external tasks in [http://ant.apache.org/ Apache Ant]
 
 ==Parameters==
 
@@ -66,6 +66,7 @@ Using the task on the current directory with depth set to 5 and verbose output:
 
 If you have any issues then please let us know, I will see what I can do.  I would also be very interested to hear what platforms and Ant versions people are using as I have not had time to extensivley test this task.
 
+ 
  
  
  
