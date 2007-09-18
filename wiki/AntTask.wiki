@@ -1,4 +1,5 @@
 #summary Page describing the use of xml-dir-listing in Apache Ant
+#labels Featured,Phase-Deploy
 
 =XML Directory Listing Ant Task=
 
@@ -65,14 +66,3 @@ Using the task on the current directory with depth set to 5 and verbose output:
 ==Support==
 
 If you have any issues then please let us know, I will see what I can do.  I would also be very interested to hear what platforms and Ant versions people are using as I have not had time to extensivley test this task.
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
