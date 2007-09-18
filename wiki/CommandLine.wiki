@@ -3,9 +3,9 @@
 
 = Using XML Directory Listing from the command line =
 
-If you've installed XML Directory Listing as described in the [InstallationGuide Installation Guide], running the app from the command-line is simple: just type xml-dir-listing.
+If you've installed XML Directory Listing as described in the [InstallationGuide Installation Guide], running the app from the command-line is simple: just type `xml-dir-listing`.
 
-This shoudl produce the following output:
+This should produce the following output:
 
 {{{
 $ xml-dir-listing
@@ -51,6 +51,7 @@ The doctype for the output XML is as follows:
     absolutePath CDATA #REQUIRED>
 }}}
 
+ 
  
  
  
