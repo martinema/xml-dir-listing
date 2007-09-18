@@ -22,17 +22,16 @@ The task needs to be defined in your Ant build file. The definition must point t
         classpath="/path/to/xml-dir-list.jar"/>
 }}}
 
-XML Directory Listing references two external libraries. You will need to ensure that Ant can find these too.
+XML Directory Listing references two external libraries. You will need to ensure that Ant can find these too, and that they are in the same directory as xml-dir-listing task.
 
-Please see the [http://ant.apache.org/manual/using.html#external-tasks External Tasks page] in the ant manual for more information on using external tasks and referencing external libraries in [http://ant.apache.org/ Apache Ant]
+The simplest way is to copy the below files into Ant's lib directory:
 
-All files needed by Ant to use the task:
 
  * *xml-dir-listing.jar* - The XML Directory Listing package.
  * *jakarta-regexp.jar*  - The [http://jakarta.apache.org/regexp/ Jakarta regexp pakage]. May already be referenced by Ant.
  * *log4j.jar*           - The [http://logging.apache.org/log4j/ log4j package]. May already be referenced by Ant.
 
-
+Please see the [http://ant.apache.org/manual/using.html#external-tasks External Tasks page] in the ant manual for more information on using external tasks and referencing external libraries in [http://ant.apache.org/ Apache Ant]
 
 ==Parameters==
 
@@ -66,6 +65,7 @@ Using the task on the current directory with depth set to 5 and verbose output:
 ==Support==
 
 If you have any issues then please let us know, I will see what I can do.  I would also be very interested to hear what platforms and Ant versions people are using as I have not had time to extensivley test this task.
+ 
  
  
  
