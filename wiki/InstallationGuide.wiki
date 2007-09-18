@@ -1,17 +1,37 @@
 #summary Guide to installing the XML Directory Listing application
 #labels Featured,Phase-Deploy
 
-= Introduction =
+= XML Directory Listing Installation Guide =
 
-Add your content here.
+== Getting XML Directory Listing ==
 
+Download the latest distribution form the downloads section of this site.
 
-= Details =
+== System Requirements == 
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+XML Directory Listing should run on most operating systems but has primarily been tested on Windows, Linux and Mac OS X. It requires [http://java.sun.com Java] Runtime Environment 1.4+.
+
+== Installation ==
+ 
+The binary distribution of XML Directory Listing consists of the following directory layout:
+
+  xml-dir-listing
+   |
+   +--- README, LICENSE, fetch.xml, other text files. //basic information
+   +--- bin  // contains launcher scripts
+   |
+   +--- lib  // contains Ant jars plus necessary dependencies
+   |
+   +--- docs // contains documentation
+   |      |
+   |      +--- images  // various logos for html documentation
+   |      |
+   |      +--- manual  // Ant documentation (a must read ;-)
+   |
+   +--- etc // contains xsl goodies to:
+            //   - create an enhanced report from xml output of various tasks.
+            //   - migrate your build files and get rid of 'deprecated' warning
+            //   - ... and more ;-)
 
  
  
