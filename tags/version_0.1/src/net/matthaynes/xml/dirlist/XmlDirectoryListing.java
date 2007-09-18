@@ -117,7 +117,7 @@ public final class XmlDirectoryListing {
 				
 				// Set an output property that will be in effect for the transformation.
 				serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
-				serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM,"http://xml-dir-listing.googlecode.com/svn/branches/dev_1.0/lib/xml-dir-listing.dtd");
+				serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "http://xml-dir-listing.googlecode.com/svn/tags/version_0.1/lib/xml-dir-listing.dtd");
 				serializer.setOutputProperty(OutputKeys.INDENT,"yes");
 	
 				// Enables the user of the TransformerHandler to set the to set the Result 
