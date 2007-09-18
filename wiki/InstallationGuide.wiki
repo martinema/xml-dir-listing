@@ -30,13 +30,18 @@ xml-dir-listing
           +--- api     // Contains the Java API
 }}}
 
-=== Unpack the distribution ===
+==== Unpack the distribution ====
 
 To install XML Directory Listing, unpack the above files into your chosen installation directory.
 
-=== Set the PATH environmental variable ===
+==== Set the PATH environmental variable ====
 
 Before you are able to use XML Directory Listing from the command line you will have to add the `bin` directory to your systems `PATH` environmental variable.
+
+== Usage ==
+
+After following the above steps XML Directory Listing should be ready to go. Please the see [CommandLine usage document] for more information on how to use the application.
+ 
  
  
  
