@@ -1,10 +1,11 @@
-#summary Page of TODO requirements for project
+#summary Project to-do list
 #labels Phase-Requirements
 
-= TODO =
+= To-do List =
 
  * Document log4j extensions
  * Link to latest API via svn web interface
  * General docs 
+ 
  
  
