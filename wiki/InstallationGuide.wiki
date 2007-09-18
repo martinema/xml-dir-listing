@@ -1,4 +1,5 @@
 #summary Guide to installing the XML Directory Listing application
+#labels Featured,Phase-Deploy
 
 = Introduction =
 
@@ -12,4 +13,5 @@ Add your content here.  Format your content with:
   * Headings, paragraphs, and lists
   * Automatic links to other wiki pages
 
+ 
  
