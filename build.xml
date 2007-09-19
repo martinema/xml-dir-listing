@@ -10,8 +10,7 @@
 
 	<target name="clean" description="Delete all generated files">
 		<delete dir="${classes.dir}" failonerror="true"/>
-		<delete dir="${javadoc.dir}" failonerror="true"/>
-		<delete file="./lib/${ant.project.name}.jar"/>
+		<delete file="./lib/${ant.project.name}.jar" failonerror="true"/>
 	</target>
 
 	<target name="compile" description="Compiles the Task" depends="clean">
@@ -34,10 +33,20 @@
 		</jar>
 	</target>
  
-	<target name="use-cli" description="Use the tool from command line" depends="jar">
+	<target name="use-cli-unix" description="Use the tool from command line on Unix" depends="jar">
+		
 		<exec executable="${bin.dir}/xml-dir-listing">
 			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml ."/>
-		</exec>       	
+		</exec>  
+		
+	</target>
+	
+	<target name="use-cli-win" description="Use the tool from command line on Windows" depends="jar">
+			
+		<exec executable="${bin.dir}/xml-dir-listing.bat">
+			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml ."/>
+		</exec>  
+
 	</target>
 
 	<target name="use-task" description="Use the Task" depends="jar">
