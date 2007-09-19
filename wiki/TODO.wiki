@@ -3,7 +3,13 @@
 
 = To-do List =
 
- * Windows batch file 
+ * Write release task (basically zip)
+ * Test
+ * Release
+ * Update Ant External Task page
+ * Publicise
+ * Tidy java wiki page
+ 
  
  
  
