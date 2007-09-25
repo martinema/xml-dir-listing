@@ -3,11 +3,9 @@
 
 = To-do List =
 
- * Write release task (basically zip)
- * Test
- * Release
+ * More testing
  * Update Ant External Task page
- * Publicise
+ * Publicize
  * Tidy java wiki page
  
  
