@@ -11,7 +11,7 @@ set XML_DIR_LISTING_HOME=%~dp0..
 
 REM Get local classpath
 
-set LOCAL_CP=%CLASSPATH%;%XML_DIR_LISTING_HOME%\lib\xml-dir-listing.jar;%XML_DIR_LISTING_HOME%\lib\commons-cli-1.1.jar;%XML_DIR_LISTING_HOME%\lib\jakarta-regexp-1.5.jar;%XML_DIR_LISTING_HOME%\lib\log4j-1.2.14.jar
+set LOCAL_CP=%CLASSPATH%;%XML_DIR_LISTING_HOME%\lib\xml-dir-listing.0.1.jar;%XML_DIR_LISTING_HOME%\lib\commons-cli-1.1.jar;%XML_DIR_LISTING_HOME%\lib\jakarta-regexp-1.5.jar;%XML_DIR_LISTING_HOME%\lib\log4j-1.2.14.jar
 
 REM echo %LOCAL_CP%
 
