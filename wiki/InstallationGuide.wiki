@@ -11,7 +11,7 @@ Download the latest distribution from the downloads section of this site.
 
 XML Directory Listing should run on most operating systems but has primarily been tested on Windows, Linux and Mac OS X. 
 
-It requires [http://java.sun.com Java] Runtime Environment 1.4+.
+It requires [http://java.sun.com Java] Runtime Environment 1.5+.
 
 == Installation ==
  
