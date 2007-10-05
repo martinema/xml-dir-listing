@@ -20,6 +20,7 @@
 	<path id="classpath.test">
 		<pathelement location="${lib.dir}/junit.jar" />
 		<pathelement location="${test.dir}" />
+		<pathelement location="${lib.dir}/${ant.project.name}.${version.number}.jar" />
 		<path refid="classpath" />
 	</path>
 	
@@ -34,14 +35,14 @@
 	    </delete>
 	</target>
 	
-	<target name="compile" description="Compiles the application" depends="clean">
+	<target name="compile" description="Compiles the application" depends="">
 		<mkdir dir="${classes.dir}"/>
 		<javac srcdir="${src.dir}" destdir="${classes.dir}">
 			<classpath refid="classpath"/>
 		</javac>	
 	</target>
 	
-	<target name="compile-test" description="Compiles the junit tests" depends="clean-test">
+	<target name="compile-test" description="Compiles the junit tests" depends="jar, clean-test">
 		<javac srcdir="${test.dir}">
 			<classpath refid="classpath.test"/>
 		</javac>
