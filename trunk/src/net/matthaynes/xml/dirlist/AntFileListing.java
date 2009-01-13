@@ -13,13 +13,13 @@ public final class AntFileListing extends Task {
 	
 		public String sort;
 		public boolean reverse;
-		public String output;
+		public File output;
 		public boolean verbose;
 		public String dateFormat;
 		public int depth;
 		public String includesRegEx;
 		public String excludesRegEx;
-		public String directory;
+		public File directory;
 		
 		/** XmlDirectoryListing object */
 		private static XmlDirectoryListing lister = new XmlDirectoryListing();
@@ -50,7 +50,7 @@ public final class AntFileListing extends Task {
 	     * Gets the srcdir attribute from the ant task
 	     * @param output
 	     */
-	    public void setDestFile(String output) {
+	    public void setDestFile(File output) {
 	    	this.output = output;
 	    }
 
@@ -98,7 +98,7 @@ public final class AntFileListing extends Task {
 	     * Gets the srcdir attribute from the ant task
 	     * @param directory
 	     */
-	    public void setSrcDir(String directory) {
+	    public void setSrcDir(File directory) {
 	    	this.directory = directory;
 	    }
 
@@ -159,7 +159,7 @@ public final class AntFileListing extends Task {
 		    	if(this.directory == null){
 		            throw new BuildException("No Directory set.");
 		    	} else {
-		    		dir = new File(this.directory);
+		    		dir = this.directory;
 		    	}
 		    	
 				
