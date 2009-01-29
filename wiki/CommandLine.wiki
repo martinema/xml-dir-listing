@@ -13,7 +13,7 @@ $ xml-dir-listing
 usage: xml-dir-list [options] source
 
 options:
--c,--encoding <arg>     sets character encoding definition for XML file
+ -c,--encoding <arg>     sets character encoding definition for XML file
  -d,--depth <arg>        depth of directory listings
  -e,--excludes <arg>     excludes regEx for directory listings
  -f,--dateformat <arg>   date format for listings
