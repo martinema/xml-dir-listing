@@ -4,8 +4,6 @@
 = To-do List =
 
  * More testing
- * Update Ant External Task page
- * Publicize
  * Tidy java wiki page
  
  
