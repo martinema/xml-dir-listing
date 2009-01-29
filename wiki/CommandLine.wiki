@@ -13,6 +13,7 @@ $ xml-dir-listing
 usage: xml-dir-list [options] source
 
 options:
+-c,--encoding <arg>     sets character encoding definition for XML file
  -d,--depth <arg>        depth of directory listings
  -e,--excludes <arg>     excludes regEx for directory listings
  -f,--dateformat <arg>   date format for listings
@@ -42,6 +43,7 @@ xml-dir-listing -v -s filesize -f "yyyy-MM-dd" -o list.xml "C:\Some Directory"
 == Command line options in more detail ==
 
 || *Argument* || *Description* || *Required* ||
+|| -c, --encoding || The character encoding attribute for XML declaration, defaults to UTF-8 || No ||
 || -o, --output || The output XML file. || Yes ||
 || -d, --depth || How deep into the directory structure to list || No ||
 || -e, --excludes || A regex pattern to exclude files from listing || No ||
