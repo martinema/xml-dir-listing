@@ -84,7 +84,7 @@
 	<target name="test-cli-unix" description="Use the tool from command line on Unix" depends="jar">
 		
 		<exec executable="${bin.dir}/xml-dir-listing" failonerror="yes">
-			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml ."/>
+			<arg line="-sort directory -r -f yyyy-MM-d -o fileList.xml -c ISO-8859-1 ."/>
 		</exec>  
 		
 	</target>
@@ -108,7 +108,7 @@
 	<target name="test-task" description="Use the Task" depends="jar">
 		<taskdef name="xml-dir-list" classname="net.matthaynes.xml.dirlist.AntFileListing"
 			classpath="${lib.dir}/${ant.project.name}.${version.number}.jar"/>
-		<xml-dir-list reverse="true" verbose="true" srcDir="." destFile="fileList.xml"/>
+		<xml-dir-list reverse="true" verbose="true" srcDir="." destFile="fileList.xml" encoding="ISO-8859-1"  />
 	</target>
 	
  	<target name="zip" description="Packages all files into a zip archive">

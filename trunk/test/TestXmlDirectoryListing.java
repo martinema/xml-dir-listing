@@ -13,6 +13,7 @@ public class TestXmlDirectoryListing extends TestCase {
 	private static String dateFormat = "dd M yy'T'HHmmss"; 
 	private static String [] sorts = {"directory","name","size","lastmodified"};
 	private static String sortError = "gobbldygook";
+	private static String encoding = "ISO-8859";
 
     /**
      * setUp() method that initializes common objects
@@ -42,6 +43,14 @@ public class TestXmlDirectoryListing extends TestCase {
     public void testSetDepth() {
     	lister.setDepth(this.depth);
     	assertEquals(this.depth,lister.depth);
+    }
+    
+    /**
+     * Test setEncoding() method
+     */
+    public void testSetEncoding() {
+    	lister.setEncoding(this.encoding);
+    	assertEquals(this.encoding,lister.encoding);
     }
     
     /**

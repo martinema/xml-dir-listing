@@ -51,6 +51,9 @@ public final class XmlDirectoryListing {
 	/** How deep to recurse into directory structure. */
 	public int depth;
 	
+	/** Character encoding */
+	public String encoding = "UTF-8";
+	
     /** The regular expression for the include pattern. */
 	public RE includeRE;
     
@@ -116,8 +119,7 @@ public final class XmlDirectoryListing {
 				serializer = hd.getTransformer();
 				
 				// Set an output property that will be in effect for the transformation.
-				serializer.setOutputProperty(OutputKeys.ENCODING,"ISO-8859-1");
-				serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "http://xml-dir-listing.googlecode.com/svn/tags/version_0.1/lib/xml-dir-listing.dtd");
+				serializer.setOutputProperty(OutputKeys.ENCODING, this.encoding);
 				serializer.setOutputProperty(OutputKeys.INDENT,"yes");
 	
 				// Enables the user of the TransformerHandler to set the to set the Result 
@@ -126,6 +128,7 @@ public final class XmlDirectoryListing {
 				
 				// SAX ContentHandler parse event
 				hd.startDocument();
+				
 				log.debug("Starting XML document");
 				
 				createElement(dir, depth, true);
@@ -168,7 +171,7 @@ public final class XmlDirectoryListing {
 				log.debug("Starting element " + file.getAbsolutePath());
 				
 				// Output details of the file
-				hd.startElement("","",fileType,atts);
+				hd.startElement("",fileType,fileType,atts);
 				
 				if (fileType == "directory") {
 					this.parseDirectory(file, depth);
@@ -309,6 +312,14 @@ public final class XmlDirectoryListing {
 		log.info("Setting directory listing depth to: " + Integer.toString(newDepth));
 	}
 	
+	/**
+	 * Sets charcter encoding
+	 * @param encoding
+	 */
+	public void setEncoding(String encoding) {
+		log.info("Setting encoding to: " + encoding);
+		this.encoding = encoding;
+	}
 	
 	/**
 	 * Sets the exclude regular expression
