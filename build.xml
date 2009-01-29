@@ -8,7 +8,7 @@
 	<property name="docs.dir" value="docs"/>
 	<property name="javadoc.dir" value="docs/api"/>
 	<property name="test.dir" location="test" />
-	<property name="version.number" value="0.1"/>
+	<property name="version.number" value="0.2"/>
 	
 	<path id="classpath">
 		<pathelement path="${lib.dir}/jakarta-regexp-1.5.jar"/>
