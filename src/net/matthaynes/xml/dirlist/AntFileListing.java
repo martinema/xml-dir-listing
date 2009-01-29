@@ -19,6 +19,7 @@ public final class AntFileListing extends Task {
 		public int depth;
 		public String includesRegEx;
 		public String excludesRegEx;
+		public String encoding;		
 		public File directory;
 		
 		/** XmlDirectoryListing object */
@@ -37,6 +38,14 @@ public final class AntFileListing extends Task {
 	    public void setSort(String sort) {
 	    	this.sort = sort;
 	    }		
+	    
+		/**
+		 * Gets the encoding attribute from the ant task.
+		 * @param encoding
+		 */
+	    public void setEncoding(String encoding) {
+	    	this.encoding = encoding;
+	    }			    
 		
 	    /**
 	     * Gets the revrse attribute from the ant task.
@@ -120,6 +129,11 @@ public final class AntFileListing extends Task {
 				// Check for sort option and apply it to XmlDirectoryListing class
 				if (this.sort != null) {
 					lister.setSort(this.sort);
+				}
+				
+				// Check for encoding option and apply it to XmlDirectoryListing class
+				if (this.encoding != null) {
+					lister.setEncoding(this.encoding);
 				}
 				
 				// Check for reverse option and apply it to XmlDirectoryListing class

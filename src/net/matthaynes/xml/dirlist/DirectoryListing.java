@@ -41,6 +41,7 @@ public final class DirectoryListing {
 			opt.addOption("d", "depth", true, "depth of directory listings");
 			opt.addOption("i", "includes", true, "includes regEx for directory listings");
 			opt.addOption("e", "excludes", true, "excludes regEx for directory listings");
+			opt.addOption("c", "encoding", true, "sets character encoding definition for XML file");
 						
 			// Parse arguments
 			BasicParser parser = new BasicParser();
@@ -72,6 +73,11 @@ public final class DirectoryListing {
 			// Check for sort option and apply it to XmlDirectoryListing class
 			if (cl.hasOption("s")) {
 				lister.setSort(cl.getOptionValue("s"));
+			}
+			
+			// Check for character encoding
+			if (cl.hasOption("c")) {
+				lister.setEncoding(cl.getOptionValue("c"));
 			}
 			
 			// Check for reverse option and apply it to XmlDirectoryListing class
