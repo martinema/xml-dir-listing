@@ -39,6 +39,7 @@ Please see the [http://ant.apache.org/manual/using.html#external-tasks External 
 || srcDir || The directory to generate a listing for. || Yes ||
 || destFile || The output XML file. || Yes ||
 || depth || How deep into the directory structure to list || No ||
+|| encoding || The character encoding attribute for XML declaration, defaults to UTF-8 || No ||
 || excludesRegEx || A regex pattern to exclude files from listing || No ||
 || includesRegEx || A regex pattern to include files from listing || No ||
 || reverse || If `true` sort order is reversed. Defaults to `false` || No ||
