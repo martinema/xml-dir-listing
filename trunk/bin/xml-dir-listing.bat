@@ -17,4 +17,4 @@ REM echo %LOCAL_CP%
 
 REM Run app
 
-java -classpath "%LOCAL_CP%" net.matthaynes.xml.dirlist.DirectoryListing "%*"
+java -classpath "%LOCAL_CP%" net.matthaynes.xml.dirlist.DirectoryListing %*
