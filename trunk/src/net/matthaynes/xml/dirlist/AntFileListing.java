@@ -9,7 +9,7 @@ import org.apache.tools.ant.Task;
 **/
 
 
-public final class AntFileListing extends Task {
+public class AntFileListing extends Task {
 	
 		public String sort;
 		public boolean reverse;
