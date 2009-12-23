@@ -12,7 +12,7 @@ import org.apache.commons.cli.ParseException;
  * Command line interface for XML Directory Listing class.
  */
 
-public final class DirectoryListing {
+public class DirectoryListing {
 
 	/** CLI options object */
 	private static Options opt = new Options();

@@ -27,7 +27,7 @@ import org.apache.regexp.RESyntaxException;
  * XML Directory Listing Class
  */
 
-public final class XmlDirectoryListing {
+public class XmlDirectoryListing {
 	
 	// SAX stuff, comment better, understand more!
 	protected static StreamResult streamResult;
