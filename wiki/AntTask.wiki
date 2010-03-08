@@ -59,7 +59,7 @@ Define the task in your build file:
 Using the task on the current directory with depth set to 5 and verbose output:
 
 {{{ 
-<xml-dir-list depth="5" verbose="true" srcDir="." destFile="fileList.xml"/>
+<xml-dir-listing depth="5" verbose="true" srcDir="." destFile="fileList.xml"/>
 }}}
 
 
