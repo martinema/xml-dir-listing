@@ -8,13 +8,13 @@
 	<property name="docs.dir" value="docs"/>
 	<property name="javadoc.dir" value="docs/api"/>
 	<property name="test.dir" location="test" />
-	<property name="version.number" value="0.2"/>
+	<property name="version.number" value="0.2.1"/>
 	
 	<path id="classpath">
 		<pathelement path="${lib.dir}/jakarta-regexp-1.5.jar"/>
 		<pathelement path="${lib.dir}/commons-cli-1.1.jar"/>
 		<pathelement path="${lib.dir}/log4j-1.2.14.jar"/>
-		<pathelement path="${java.class.path}/"/>
+		<pathelement location="${lib.dir}/${ant.project.name}.${version.number}.jar" />			
 	</path>
 	
 	<path id="classpath.test">
@@ -75,6 +75,7 @@
 			<fileset dir="${classes.dir}" />
 			<fileset dir="." includes="NOTICE LICENSE" defaultexcludes="yes" />
 		</jar>
+		
 	</target>
  	
  	<target name="release" depends="jar, test-junit, test-task, generate-javadoc, zip" description="Releases code to googlecode">
@@ -106,9 +107,13 @@
 	</target>	
 
 	<target name="test-task" description="Use the Task" depends="jar">
-		<taskdef name="xml-dir-list" classname="net.matthaynes.xml.dirlist.AntFileListing"
-			classpath="${lib.dir}/${ant.project.name}.${version.number}.jar"/>
+		
+		<taskdef name="xml-dir-list" classname="net.matthaynes.xml.dirlist.AntFileListing">
+			<classpath refid="classpath" />
+		</taskdef>
+			
 		<xml-dir-list reverse="true" verbose="true" srcDir="." destFile="fileList.xml" encoding="ISO-8859-1"  />
+		
 	</target>
 	
  	<target name="zip" description="Packages all files into a zip archive">
